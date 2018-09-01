@@ -1,8 +1,10 @@
 # lein-isolate [![Clojars Project](https://img.shields.io/clojars/v/lein-isolate.svg)](https://clojars.org/lein-isolate)
 
 __lein-isolate__ is a helper to perform automatic dependency isolation when
-creating a Leiningen plugin. This uses [mranderson][mranderson] internally
-to inline Clojure files.
+creating a Leiningen plugin.
+
+Internally, [mranderson][mranderson] is used to inline Clojure files and
+redirect `require` calls to the appropriate namespaces.
 
 [mranderson]: https://github.com/benedekfazekas/mranderson
 
@@ -15,6 +17,14 @@ After including the plugin activate its middleware:
 ```
 
 ## Usage
+
+Mark the dependencies to-be-inlined with `^:source-dep` metadata, as required by
+[mranderson][mranderson]. E.g.:,
+
+```clojure
+:dependencies [^:source-dep [rewrite-clj "0.6.1"]
+               ^:source-dep [cheshire "5.8.0"]]
+```
 
 The middleware overrides the `install`, `deploy`, `jar` and `uberjar` tasks to
 perform dependency isolation before they are run. So, usually, you won't have to
