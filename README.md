@@ -1,4 +1,4 @@
-# lein-isolate
+# lein-isolate [![Clojars Project](https://img.shields.io/clojars/v/lein-isolate.svg)](https://clojars.org/lein-isolate)
 
 __lein-isolate__ is a helper to perform automatic dependency isolation when
 creating a Leiningen plugin. This uses [mranderson][mranderson] internally
