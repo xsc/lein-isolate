@@ -3,6 +3,7 @@
              [project :as project]
              [main :as main]]
             [leiningen.source-deps :refer [source-deps]]
+            [mranderson.plugin :as mranderson]
             [clojure.java.io :as io]))
 
 ;; ## Data
@@ -60,7 +61,8 @@
     (-> project
         (project/add-profiles +profiles+)
         (inject-aliases)
-        (assoc ::middleware-active? true))))
+        (assoc ::middleware-active? true)
+        (mranderson/middleware))))
 
 (defn- check-middleware!
   [project]
