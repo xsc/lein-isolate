@@ -41,9 +41,10 @@
     :or {name "__isolated__"}
     :as project}]
   (main/resolve-and-apply project ["clean"])
-  (source-deps project
-               ":skip-javaclass-repackage" "true"
-               ":project-prefix" name))
+  (let [prefix (.replace ^String name "-" "_")]
+    (source-deps project
+                 ":skip-javaclass-repackage" "true"
+                 ":project-prefix" prefix)))
 
 (defn- run-task!
   [project args]
