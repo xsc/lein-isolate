@@ -2,7 +2,7 @@
   (:require [leiningen.core
              [project :as project]
              [main :as main]]
-            [leiningen.source-deps :refer [source-deps]]
+            [leiningen.inline-deps :refer [inline-deps]]
             [mranderson.plugin :as mranderson]
             [clojure.java.io :as io]))
 
@@ -42,7 +42,7 @@
     :as project}]
   (main/resolve-and-apply project ["clean"])
   (let [prefix (.replace ^String name "-" "_")]
-    (source-deps project
+    (inline-deps project
                  ":skip-javaclass-repackage" "true"
                  ":project-prefix" prefix)))
 
