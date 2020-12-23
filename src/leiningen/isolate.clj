@@ -75,7 +75,7 @@
 
 (defn isolate
   "Run a task in an isolated fashion, inlining all dependencies marked with
-   `^:source-dep` metadata.
+   `^:source-dep` or `:inline-dep` metadata.
 
    Make sure to enable the respective middleware via:
 
