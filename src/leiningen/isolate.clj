@@ -58,12 +58,11 @@
 
 (defn middleware
   [project]
-  (let [existing-aliases (set (keys (:aliases project)))]
-    (-> project
-        (project/add-profiles +profiles+)
-        (inject-aliases)
-        (assoc ::middleware-active? true)
-        (mranderson/middleware))))
+  (-> project
+      (project/add-profiles +profiles+)
+      (inject-aliases)
+      (assoc ::middleware-active? true)
+      (mranderson/middleware)))
 
 (defn- check-middleware!
   [project]
