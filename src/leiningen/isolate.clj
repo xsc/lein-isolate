@@ -1,5 +1,6 @@
 (ns leiningen.isolate
   (:require [leiningen.core
+             [eval :as eval]
              [project :as project]
              [main :as main]]
             [leiningen.inline-deps :refer [inline-deps]]
@@ -10,10 +11,12 @@
 
 (def ^:private +profiles+
   {::mranderson
-   (-> (io/resource "mranderson/profiles.clj")
-       (slurp)
-       (read-string)
-       (:config))})
+   (merge
+     {:prep-tasks ^:replace []}
+     (-> (io/resource "mranderson/profiles.clj")
+         (slurp)
+         (read-string)
+         (:config)))})
 
 ;; ## Aliases
 
@@ -36,15 +39,23 @@
 
 ;; ## Logic
 
+(defn- clean!
+  [project]
+  (main/resolve-and-apply project ["clean"]))
+
+(defn- prep!
+  [project]
+  (eval/run-prep-tasks project))
+
 (defn- isolate!
-  [{:keys [name]
+  [{:keys [name isolate]
     :or {name "__isolated__"}
     :as project}]
-  (main/resolve-and-apply project ["clean"])
-  (let [prefix (.replace ^String name "-" "_")]
-    (inline-deps project
-                 ":skip-javaclass-repackage" "true"
-                 ":project-prefix" prefix)))
+  (let [prefix (.replace ^String name "-" "_")
+        {:keys [args]
+         :or {args [":skip-javaclass-repackage" "true"]}}
+        isolate]
+    (apply inline-deps project ":project-prefix" prefix args)))
 
 (defn- run-task!
   [project args]
@@ -68,7 +79,8 @@
   [project]
   (when-not (::middleware-active? project)
     (main/info "Cannot run 'lein isolate' since middleware is not active.")
-    (main/exit 1)))
+    (main/exit 1))
+  project)
 
 ;; ## Main
 
@@ -86,5 +98,7 @@
   [project & args]
   (doto project
     (check-middleware!)
+    (clean!)
+    (prep!)
     (isolate!)
     (run-task! args)))
