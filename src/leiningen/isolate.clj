@@ -78,7 +78,7 @@
 
    Make sure to enable the respective middleware via:
 
-       :middlewares [leiningen.isolate/middleware]
+       :middleware [leiningen.isolate/middleware]
 
    See also:
    https://github.com/benedekfazekas/mranderson

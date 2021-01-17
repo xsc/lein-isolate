@@ -13,7 +13,7 @@ redirect `require` calls to the appropriate namespaces.
 After including the plugin activate its middleware:
 
 ```clojure
-:middlewares [leiningen.isolate/middleware]
+:middleware [leiningen.isolate/middleware]
 ```
 
 ## Usage
