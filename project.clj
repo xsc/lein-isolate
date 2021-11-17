@@ -5,5 +5,6 @@
             :url "none"
             :year 2018
             :key "mit"}
-  :dependencies [[thomasa/mranderson "0.5.2"]]
-  :eval-in :leiningen)
+  :dependencies [[thomasa/mranderson "0.5.3"]]
+  :eval-in :leiningen
+  :pedantic? :abort)
