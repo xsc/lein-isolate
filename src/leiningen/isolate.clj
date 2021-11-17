@@ -52,8 +52,7 @@
     :or {name "__isolated__"}
     :as project}]
   (let [prefix (.replace ^String name "-" "_")
-        {:keys [args]
-         :or {args [":skip-javaclass-repackage" "true"]}}
+        {:keys [args] :or {args []}}
         isolate]
     (apply inline-deps project ":project-prefix" prefix args)))
 
