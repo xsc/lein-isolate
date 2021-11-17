@@ -1,4 +1,4 @@
-(defproject lein-isolate "1.0.0-SNAPSHOT"
+(defproject lein-isolate "1.0.0"
   :description "Provide isolation for your plugins."
   :url "https://github.com/xsc/lein-isolate"
   :license {:name "MIT License"
