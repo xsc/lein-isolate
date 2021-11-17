@@ -16,6 +16,14 @@ After including the plugin activate its middleware:
 :middleware [leiningen.isolate/middleware]
 ```
 
+You can add an `:isolate` key to your project to customize arguments passed to
+mranderson:
+
+```clojure
+:middleware [leiningen.isolate/middleware]
+:isolate {:args [":skip-javaclass-repackage" "true"]}
+```
+
 ## Usage
 
 Mark the dependencies to-be-inlined with `^:source-dep` metadata, as required by
